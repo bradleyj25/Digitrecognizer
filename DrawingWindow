@@ -32,7 +32,7 @@ public class DrawingWindow extends JFrame {
                 JLabel lblWarning = new JLabel("Draw Here, Take your time!");
                 lblWarning.setBounds(85, 290, 160, 30);
                 btnRecognize = new JButton("Recognition");
-                btnRecognize.setBounds(100, 340, 100, 50);
+                btnRecognize.setBounds(100, 340, 120, 60);
                 btnRecognize.setFocusPainted(false);
                 
 
