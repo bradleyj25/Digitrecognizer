@@ -3,7 +3,7 @@ import java.util.HashMap;
 public class Connection {
 	
 	 public static MainView mainview;
-	 public static DrawingWindow drawingWindow;
+	 
      public static DrawingPanel drawingPanel;
      private static HashMap<Integer, String> binary;
 
@@ -26,4 +26,6 @@ public class Connection {
      }
 
 }
+
+
 
