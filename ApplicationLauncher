@@ -1,0 +1,33 @@
+import javax.swing.UIManager;
+
+public class ApplicationLauncher {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		Connection.drawingWindow = new DrawingWindow();
+		
+		try { 
+			
+			UIManager.setLookAndFeel("javax.swing.plaf.NimbusLookAndFeel");
+		}
+		
+		catch(Exception e) { 
+			System.out.println("Error occured while setting " + "up the look and feel" + e.toString());
+		}
+		
+		javax.swing.SwingUtilities.invokeLater(new Runnable() {
+			public void run() { 
+				try { 
+					new MainView();
+				} catch (Exception e) {
+					
+					System.out.println("Error occured while initiating" 
+					+ "the Swing thread. Please try again later...");
+				}
+			}
+		});
+
+	}
+
+}
