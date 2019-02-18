@@ -5,7 +5,7 @@ public class ApplicationLauncher {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
-		Connection.drawingWindow = new DrawingWindow();
+		
 		
 		try { 
 			
@@ -31,3 +31,4 @@ public class ApplicationLauncher {
 	}
 
 }
+
