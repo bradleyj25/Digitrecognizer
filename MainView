@@ -1,0 +1,242 @@
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+
+import javax.swing.AbstractButton;
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.border.EtchedBorder;
+
+public class MainView {
+			
+	
+	private JFrame mainWindow;
+	
+	private JButton openFileBtn;
+	private JTextField fileNameTxt;
+	private JLabel fileNameLbl;
+	
+	MainController controller;
+	DrawingWindow drawingWindow;
+	DrawingPanel drawingPanel;
+	ImageFileHandler imagefileHandler;
+	FileHandler fileHandler; 
+
+	protected Object imgModel; 
+	
+	
+	public MainView() { 
+		
+		controller = new MainController();
+		
+		mainWindow = new JFrame("Handwritten recognition"); 
+		
+		mainWindow.setLayout(new BorderLayout());
+		
+		mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		mainWindow.setSize(new Dimension(200, 100));;
+		
+		mainWindow.getContentPane().setBackground(Color.BLUE);
+		
+		mainWindow.setVisible(true);
+		
+		
+		
+		JPanel fileSelectPanel = new JPanel();
+		
+		fileNameLbl = new JLabel ("File name: ");
+		fileNameTxt = new JTextField(50);
+		fileNameTxt.setEnabled(false);
+		openFileBtn = new JButton("Open File");
+		
+		fileSelectPanel.add(fileNameLbl);
+		fileSelectPanel.add(fileNameTxt);
+		fileSelectPanel.add(openFileBtn);
+		
+		mainWindow.add(fileSelectPanel, BorderLayout.PAGE_START);
+		
+		JPanel opButtonPanel = new JPanel();
+		
+		JButton rgbButton = new JButton("RGB Image");
+		JButton grayScaleBtn = new JButton("Grayscale Image");
+		JButton edgeButton = new JButton("Edge Image");
+		JButton drawCanvasBtn = new JButton("Draw Image");
+		
+		opButtonPanel.add(rgbButton);
+		opButtonPanel.add(grayScaleBtn);
+		opButtonPanel.add(edgeButton);
+		opButtonPanel.add(drawCanvasBtn);
+		
+		JPanel northLayout = new JPanel(); 
+		northLayout.setLayout(new BoxLayout(northLayout,
+				BoxLayout.Y_AXIS));
+		
+		northLayout.add(fileSelectPanel);
+		northLayout.add(opButtonPanel);
+		
+		mainWindow.add(northLayout, BorderLayout.NORTH);
+		
+		
+		JPanel displayPanel = new JPanel();
+		displayPanel.setPreferredSize(new Dimension(150, 150));
+		displayPanel.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
+		JLabel imageLabel = new JLabel();
+		displayPanel.add(imageLabel);
+		
+		mainWindow.add(displayPanel, BorderLayout.CENTER);
+		
+		
+		drawCanvasBtn.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+			
+				if(drawCanvasBtn != null ) {
+				drawingWindow = new DrawingWindow();
+				drawingWindow.setVisible(true);
+				
+			}
+			}
+		});
+	
+		openFileBtn.addActionListener(controller);
+		
+		
+		openFileBtn.addActionListener(new ActionListener() {
+			
+		
+		@Override 
+		public void actionPerformed(ActionEvent e) { 
+			System.out.println("Open file button clicked...");
+		}
+
+		});
+		
+
+		openFileBtn.addActionListener(new ActionListener() {
+			
+			
+			private Component mainWindow;
+
+			@Override 
+			public void actionPerformed(ActionEvent e) {
+				File selectedFile = showFileChooserDialog();
+				
+				if(selectedFile != null) {
+					fileNameTxt.setText(selectedFile.getAbsolutePath());
+				}
+				else 
+					fileNameTxt.setText("No file selected");
+			}
+
+			private File showFileChooserDialog() {
+				// TODO Auto-generated method stub
+				
+				JFileChooser fileChooser = new JFileChooser();
+				fileChooser.setCurrentDirectory(new
+						File(System.getProperty("user.home")));
+				int status = fileChooser.showOpenDialog(this.mainWindow);
+				File selectedFile = null;
+				if (status == JFileChooser.APPROVE_OPTION) { 
+					selectedFile = fileChooser.getSelectedFile();
+				}
+				
+				return selectedFile; 
+			}
+		});
+		
+		
+		rgbButton.addActionListener(new ActionListener() { 
+		
+			
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				BufferedImage img = imgModel.getRGBImage();
+				if(img != null) {
+					displayImage(img);
+				}
+				else {
+					JOptionPane.showMessageDialog(null,
+							"No image file is choosen",
+							"Image error",
+							JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
+		
+		grayScaleBtn.addActionListener(new ActionListener() { 
+		
+			
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				BufferedImage img= imgModel.getGrayscaleImage;
+				if(img != null) {
+					displayImage(img);
+				}
+				else {
+					JOptionPane.showMessageDialog(null,
+							"No image file is choosen",
+							"Image error",
+							JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
+		
+		edgeButton.addActionListener(new ActionListener() { 
+		
+			
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				BufferedImage img = imgModel.getEdgeImg();
+				if(img != null) {
+					displayImage(img);
+				}
+				else {
+					JOptionPane.showMessageDialog(null,
+							"No image file is choosen",
+							"Image error",
+							JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
+	
+	
+		
+	
+}
+	
+	
+	
+			private void displayImage(BufferedImage img) {
+				AbstractButton imageLabel = null;
+				// TODO Auto-generated method stub
+				imageLabel.setIcon(new ImageIcon(img));
+			}
+		
+	}
+
+
+				
+
+
+
+	
+
