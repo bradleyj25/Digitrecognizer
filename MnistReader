@@ -2,6 +2,9 @@ import java.awt.image.BufferedImage;
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
 
 public class MnistReader {
 
@@ -9,19 +12,34 @@ public class MnistReader {
 		String train_label_filename;
 		String train_image_filename;
 		
+		
 		DataInputStream label_data_stream = null; 
 		DataInputStream image_data_stream = null; 
 	
+		
+		ArrayList<int[][]> image_list;
+		int[] label_list;
+		
 		// default constructor
 		public MnistReader() {
 			
 		}
-		
 		public MnistReader(String labelpath, String imagePath) {
 			this.train_label_filename = labelpath;
 			this.train_image_filename= imagePath;
+			
+			image_list = new ArrayList<int[][]>();
 		}
 		
+		public int[] getLabels() {
+			return label_list;
+		}
+		
+		public int[] getImages() { 
+			return image_list;
+		}
+		
+
 		public void readMNISTData() {
 			
 			try {
@@ -34,13 +52,13 @@ public class MnistReader {
 				System.out.println("start code: images = " + startcode_img + 
 						" startcode labels = " + startcode_label);
 				
-				number_of_labels =  label_data_stream.readInt();
-				number_of_images = image_data_stream.readInt();
+				int number_of_labels = label_data_stream.readInt();
+				int number_of_images = image_data_stream.readInt();
 				
 				System.out.println("number of labels and images: " + number_of_labels + " and " + number_of_images);
 
-				image_height = image_data_stream.readInt();
-				image_width = image_data_stream.readInt();
+				int image_height = image_data_stream.readInt();
+				int image_width = image_data_stream.readInt();
 				
 				System.out.println("Image Size: " + image_width + " x" + image_height);
 				
@@ -53,10 +71,14 @@ public class MnistReader {
 				label_data_stream.read(image_data);
 				
 				int[][] image;
+				label_list = new int[number_of_labels];
 				
 				for(int i=0; i< number_of_labels; i++)
 				{
 					int label = label_data[i];
+					label_list[i] = label;
+					
+					
 					System.out.println(label);
 					
 					image = new int[image_width][image_height];
@@ -67,12 +89,23 @@ public class MnistReader {
 							image[row][col] = image_data[(i*image_size) +((row*image_width) + col)];
 						}
 					}
+					image_list.add(image);
 				}
+				
+			}
+			catch(IOException e) {
+				
 			}
 			
-		}
 		
-	
-	
-}
+		}
 
+		
+		
+		
+}
+					
+							
+			
+			
+	
