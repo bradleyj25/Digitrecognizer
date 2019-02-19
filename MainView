@@ -30,12 +30,13 @@ public class MainView {
 	private JLabel fileNameLbl;
 	
 	MainController controller;
+	
 	DrawingWindow drawingWindow;
 	DrawingPanel drawingPanel;
 	ImageFileHandler imagefileHandler;
 	FileHandler fileHandler; 
 
-	protected Object imgModel; 
+	private ImageModel imgModel; 
 	
 	
 	public MainView() { 
@@ -46,14 +47,10 @@ public class MainView {
 		
 		mainWindow.setLayout(new BorderLayout());
 		
-		mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		mainWindow.setSize(new Dimension(200, 100));;
 		
-		mainWindow.getContentPane().setBackground(Color.BLUE);
-		
-		mainWindow.setVisible(true);
-		
+		//mainWindow.setSize(new Dimension(200, 100));;
+
 		
 		
 		JPanel fileSelectPanel = new JPanel();
@@ -186,7 +183,7 @@ public class MainView {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				BufferedImage img= imgModel.getGrayscaleImage;
+				BufferedImage img= imgModel.getGrayscaleImage();
 				if(img != null) {
 					displayImage(img);
 				}
@@ -205,7 +202,7 @@ public class MainView {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				BufferedImage img = imgModel.getEdgeImg();
+				BufferedImage img = imgModel.getEdgeImage();
 				if(img != null) {
 					displayImage(img);
 				}
@@ -219,24 +216,26 @@ public class MainView {
 		});
 	
 	
+		mainWindow.pack();
+		mainWindow.getContentPane().setBackground(Color.BLUE);
+		mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		mainWindow.setVisible(true);
 		
 	
-}
+
+	}
 	
 	
+
+		private void displayImage(BufferedImage img) {
+			AbstractButton imageLabel = null;
+			// TODO Auto-generated method stub
+			imageLabel.setIcon(new ImageIcon(img));
+		}
 	
-			private void displayImage(BufferedImage img) {
-				AbstractButton imageLabel = null;
-				// TODO Auto-generated method stub
-				imageLabel.setIcon(new ImageIcon(img));
-			}
-		
 	}
 
 
 				
 
-
-
-	
 
