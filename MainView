@@ -43,6 +43,7 @@ public class MainView {
 	
 	DrawingWindow drawingWindow;
 	DrawingPanel drawingPanel;
+	MnistReader mnistReader;
 	ImageFileHandler imagefileHandler;
 	FileHandler fileHandler; 
 
@@ -54,13 +55,13 @@ public class MainView {
 	
 		imgModel = new ImageModel();
 		
-		controller = new MainController(this, imgModel);
+		controller = new MainController(this.imgModel);
 		
 		mainWindow = new JFrame("Handwritten recognition"); 
 		
 		mainWindow.setLayout(new BorderLayout());
 		
-		
+		 
 		
 		//mainWindow.setSize(new Dimension(200, 100));;
 
@@ -76,6 +77,7 @@ public class MainView {
 		fileSelectPanel.add(fileNameLbl);
 		fileSelectPanel.add(fileNameTxt);
 		fileSelectPanel.add(openFileBtn);
+		fileSelectPanel.setBackground(Color.LIGHT_GRAY);
 		
 		mainWindow.add(fileSelectPanel, BorderLayout.PAGE_START);
 		
@@ -84,7 +86,7 @@ public class MainView {
 		JButton rgbButton = new JButton("RGB Image");
 		JButton grayScaleBtn = new JButton("Grayscale Image");
 		JButton edgeButton = new JButton("Edge Image");
-		JButton drawCanvasBtn = new JButton("Draw Image");
+		JButton drawCanvasBtn = new JButton("Draw Panel");
 	
 		
 		opButtonPanel.add(rgbButton);
@@ -99,6 +101,7 @@ public class MainView {
 	        // add both flow layouts to northLayout
 	        northLayout.add(fileSelectPanel);
 	        northLayout.add(opButtonPanel);
+	        opButtonPanel.setBackground(Color.LIGHT_GRAY);
 	        
 	        // add northLayout to mainWindow's north
 	        mainWindow.add(northLayout, BorderLayout.NORTH);
@@ -108,6 +111,7 @@ public class MainView {
 	        displayPanel.setPreferredSize(new Dimension(150, 150));
 	        displayPanel.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
 	        imageLabel = new JLabel();
+	        displayPanel.setBackground(Color.DARK_GRAY);
 	        displayPanel.add(imageLabel);
 	        
 	        // add image panel to the centre of the main window
@@ -128,6 +132,8 @@ public class MainView {
 			}
 		});
 	
+
+		
 		mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		// Set the width and height of mainWindow
 		// mainWindow.setSize(new Dimension(200, 100));;
@@ -237,6 +243,10 @@ public class MainView {
 	}
 
 }
+
+
+				
+
 
 
 				
