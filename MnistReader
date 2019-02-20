@@ -35,7 +35,7 @@ public class MnistReader {
 			return label_list;
 		}
 		
-		public int[] getImages() { 
+		public ArrayList<int[][]> getImages() { 
 			return image_list;
 		}
 		
@@ -105,7 +105,4 @@ public class MnistReader {
 		
 }
 					
-							
-			
-			
-	
+				
