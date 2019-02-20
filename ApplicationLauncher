@@ -27,8 +27,11 @@ public class ApplicationLauncher {
 				}
 			}
 		});
+		
+		MnistReader reader = new MnistReader("C:\\Users\\Brad\\Documents\\Dataformn\\train-labels-idx1-ubyte.gz", "C:\\Users\\Brad\\Documents\\Dataformn\\train-images-idx3-ubyte.gz");
+		reader.readMNISTData();
+	
 
 	}
 
 }
-
