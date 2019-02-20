@@ -3,6 +3,10 @@ import java.awt.event.ActionListener;
 
 public class MainController implements ActionListener {
 	
+	public MainController(ImageModel imgModel) {
+		// TODO Auto-generated constructor stub
+	}
+
 	@Override 
 	
 	public void actionPerformed(ActionEvent e) { 
