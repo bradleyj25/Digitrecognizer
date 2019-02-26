@@ -12,9 +12,13 @@ import javax.swing.JLabel;
 
 @SuppressWarnings("serial")
 public class DrawingWindow extends JFrame {
-
+		 
         private JButton btnRecognize;
+      
 		private Component frame;
+		
+		ImageDrawn Imagedrawn;
+		
 
         /**
          * Creates a window that contains a DrawPanel
@@ -35,7 +39,7 @@ public class DrawingWindow extends JFrame {
                 btnRecognize.setBounds(100, 340, 120, 60);
                 btnRecognize.setFocusPainted(false);
                 
-
+         
                 getContentPane().add(Connection.drawingPanel);
                 getContentPane().add(btnRecognize);
                 getContentPane().add(lblWarning);
@@ -43,7 +47,22 @@ public class DrawingWindow extends JFrame {
                 
            
                 
-                }
-               
-                
+    	
+		btnRecognize.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+			
+				if(btnRecognize != null ) {
+				Imagedrawn = new ImageDrawn();
+				
+			}
+			}
+		});
+
+		
         }
+}
+	
+               
