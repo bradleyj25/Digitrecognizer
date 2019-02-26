@@ -10,6 +10,8 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
+
+
 @SuppressWarnings("serial")
 public class DrawingWindow extends JFrame {
 		 
@@ -18,6 +20,8 @@ public class DrawingWindow extends JFrame {
 		private Component frame;
 		
 		ImageDrawn Imagedrawn;
+		
+		DrawingWindow drawingWindow; 
 		
 
         /**
@@ -38,6 +42,8 @@ public class DrawingWindow extends JFrame {
                 btnRecognize = new JButton("Recognition");
                 btnRecognize.setBounds(100, 340, 120, 60);
                 btnRecognize.setFocusPainted(false);
+                btnRecognize.addActionListener(new RecognizeListener());
+          
                 
          
                 getContentPane().add(Connection.drawingPanel);
@@ -46,21 +52,10 @@ public class DrawingWindow extends JFrame {
                 setVisible(true);
                 
            
-                
-    	
-		btnRecognize.addActionListener(new ActionListener() {
+            	
+          
 
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
-			
-				if(btnRecognize != null ) {
-				Imagedrawn = new ImageDrawn();
-				
-			}
-			}
-		});
-
+		
 		
         }
 }
