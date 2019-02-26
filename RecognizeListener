@@ -1,0 +1,22 @@
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class RecognizeListener implements ActionListener {
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
+    			dispose();
+    			Connection.recognitionWin.loadImage();
+    			Connection.recognitionWin.setVisible(true);
+    			Connection.recognitionWin.recognize();
+    		}
+
+	private void dispose() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	}
+
