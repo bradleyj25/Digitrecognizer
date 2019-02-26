@@ -34,21 +34,21 @@ public class ImageDrawn extends JFrame{
     Window = new JFrame("Handwritten recognition"); 
 		
 	Window.setLayout(new BorderLayout());
-	
-	
-	Window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	// Set the width and height of mainWindow
-	// mainWindow.setSize(new Dimension(200, 100));;
-	Window.pack();
-    // Display the window.
-	Window.setVisible(true);
-	
+
+
      DrawingPanel drawingPanel; 
      DrawingWindow drawingWindow; 
      MainView mainView;
+     
+ 	
+ 	Window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+ 	// Set the width and height of mainWindow
+ 	// mainWindow.setSize(new Dimension(200, 100));;
+ 	Window.pack();
+     // Display the window.
+ 	Window.setVisible(true);
 
 
-		// TODO Auto-generated method stub
 		
 	}
 }
