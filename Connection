@@ -3,8 +3,9 @@ import java.util.HashMap;
 public class Connection {
 	
 	 public static MainView mainview;
-	 
      public static DrawingPanel drawingPanel;
+     public static NeuralNetworks neuralNet;
+     public static RecognitionWin recognitionWin;
      private static HashMap<Integer, String> binary;
 
      static {
@@ -26,6 +27,4 @@ public class Connection {
      }
 
 }
-
-
 
