@@ -15,6 +15,7 @@ import javax.swing.JLabel;
 @SuppressWarnings("serial")
 public class DrawingWindow extends JFrame {
 		 
+		private JButton btnReset;
         private JButton btnRecognize;
       
 		private Component frame;
@@ -40,14 +41,18 @@ public class DrawingWindow extends JFrame {
                 JLabel lblWarning = new JLabel("Draw Here, Take your time!");
                 lblWarning.setBounds(85, 290, 160, 30);
                 btnRecognize = new JButton("Recognition");
-                btnRecognize.setBounds(100, 340, 120, 60);
+                btnRecognize.setBounds(40, 340, 120, 60);
                 btnRecognize.setFocusPainted(false);
                 btnRecognize.addActionListener(new RecognizeListener());
-          
+        		btnReset = new JButton("Reset");
+        		btnReset.setBounds(180, 340, 120, 60);
+        		btnReset.setFocusPainted(false);
+        		btnReset.addActionListener(new ResetButtonListener());
                 
          
                 getContentPane().add(Connection.drawingPanel);
                 getContentPane().add(btnRecognize);
+                getContentPane().add(btnReset);
                 getContentPane().add(lblWarning);
                 setVisible(true);
                 
@@ -58,6 +63,14 @@ public class DrawingWindow extends JFrame {
 		
 		
         }
+        
+    	private class ResetButtonListener implements ActionListener {
+
+    		public void actionPerformed(ActionEvent e) {
+    			dispose();
+    			Connection.drawingWindow = new DrawingWindow();
+    		}
+
+    	}
 }
-	
                
