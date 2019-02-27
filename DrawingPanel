@@ -21,7 +21,7 @@ public class DrawingPanel extends JPanel implements MouseMotionListener, MouseLi
          */
         public DrawingPanel() {
                 setPreferredSize(new Dimension(280, 280));
-                setBounds(10, 10, 280, 280);
+                setBounds(30, 10, 280, 280);
                 setBackground(Color.BLACK);
                 setBorder(BorderFactory.createLineBorder(Color.WHITE));
                 p = false;
