@@ -1,8 +1,10 @@
 
 import java.awt.image.BufferedImage;
 
+//ImageUtilities that helps generate the drawn image
 public class ImageUtils {
 	
+	//Turns the image to a buffered image
 	public static BufferedImage getImage(boolean[][] data) {
 		BufferedImage image = new BufferedImage(280, 280, BufferedImage.TYPE_BYTE_BINARY);
 		for (int i = 0; i < data.length; i++)
