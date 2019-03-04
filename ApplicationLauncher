@@ -2,6 +2,8 @@ import javax.swing.UIManager;
 import java.io.FileNotFoundException;
 
 public class ApplicationLauncher {
+ 
+	//Main method included to launch app
 
 	public static void main(String[] args) throws FileNotFoundException  {
 		// TODO Auto-generated method stub
@@ -15,6 +17,7 @@ public class ApplicationLauncher {
 			System.out.println("Error occured while setting " + "up the look and feel" + e.toString());
 		}
 		
+		//runs the main view class
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 			public void run() { 
 				try { 
@@ -27,12 +30,15 @@ public class ApplicationLauncher {
 			}
 		});
 		
+		// linked to the connection class
 		
-		Connection.neuralNet = new NeuralNetworks("H:\\Mn\\nn_weights.txt", 0.3, 100, 25, 10);
+		//uses weights to train the network to predict drawn digit
+		Connection.neuralNet = new NeuralNetworks("C:\\Users\\Brad\\Documents\\wei\\nn_weights.txt", 0.3, 100, 25, 10);
         System.out.println(Connection.neuralNet);
         Connection.recognitionWin = new RecognitionWin();
         Connection.drawingPanel = new DrawingPanel();
         
+        //links to the mnist reader class
 		MnistReader reader = new MnistReader("C:\\Users\\Brad\\Documents\\Dataformn\\train-labels-idx1-ubyte.gz", "C:\\Users\\Brad\\Documents\\Dataformn\\train-images-idx3-ubyte.gz");
 		reader.readMNISTData();
 	
