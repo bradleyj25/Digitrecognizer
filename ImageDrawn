@@ -11,6 +11,8 @@ public class ImageDrawn extends JFrame{
 	private JButton btnReset;
     private JLabel lblDigit;
     
+    // opens up the window that shows the images drawn and an image
+    // the system draws and recognizes.
     
     public ImageDrawn() {
 
