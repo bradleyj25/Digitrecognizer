@@ -17,11 +17,11 @@ public class RecognitionWin extends JFrame {
 	private int[] rectCoords;
 	private boolean[][] bits;
 
-	/**
-	 * Creates a window where the image drawn in DrawPanel
-	 * is shown inside an ImagesPanel. Shows the interpreted
-	 * digit that the user drew.
-	 */
+
+	 //Creates a window where the image drawn in DrawPanel
+	 //is shown inside an ImagesPanel. 
+	//Shows the interpreted digit that the user drew.
+	
 	public RecognitionWin() {
 		setTitle("Handwritten Digit Recognition");
 		setSize(710, 480);
@@ -42,9 +42,8 @@ public class RecognitionWin extends JFrame {
 		getContentPane().add(new ImagesPanel());
 	}
 
-	/**
-	 * Gets the image data that was drawn in the DrawPanel.
-	 */
+	// Gets the image data that was drawn in the DrawPanel.
+	 
 	public void loadImage() {
 		boolean[][] data = Connection.drawingPanel.getData();
 		image = ImageUtils.getImage(data);
@@ -63,36 +62,25 @@ public class RecognitionWin extends JFrame {
 		lblDigit.setText(y + "");
 	}
 
-	/**
-	 * Use it to obtain the coordinates of the renctangle that
-	 * contains the drawing.
-	 * @return Array of coordinates of the rectangle in the
-	 *         format: { xmin, ymin, xmax, ymax }.
-	 */
+	
 	public int[] getRectangleCoords() {
 		return rectCoords;
 	}
 
-	/**
-	 * Use it to obtain the bits of the reduced 10x10 image.
-	 * @return Matrix of bits.
-	 */
+	
 	public boolean[][] getImageBits() {
 		return bits;
 	}
 
-	/**
-	 * Use it to get the drawn image.
-	 * @return Drawn image.
-	 */
+	
+	  //Use it to get the drawn image.
+	 
 	public BufferedImage getImage() {
 		return image;
 	}
 
-	/**
-	 * Called when the user clicks the "Reset button"
-	 * Takes back to the DrawWin.
-	 */
+	// Called when the user clicks the "Reset button"
+	
 	private class ResetButtonListener implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
