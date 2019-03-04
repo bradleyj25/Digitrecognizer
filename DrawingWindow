@@ -14,7 +14,7 @@ import javax.swing.JLabel;
 
 @SuppressWarnings("serial")
 public class DrawingWindow extends JFrame {
-		 
+		 //buttons added to the window
 		private JButton btnReset;
         private JButton btnRecognize;
       
@@ -25,10 +25,9 @@ public class DrawingWindow extends JFrame {
 		DrawingWindow drawingWindow; 
 		
 
-        /**
-         * Creates a window that contains a DrawPanel
-         * and a button to interpret the drawing.
-         */
+        
+          //Creates a window that contains a DrawPanel and a button to interpret the drawing.
+         
         public DrawingWindow() {
                 setTitle("Draw Panel for handwritten recognition");
                 setSize(new Dimension(340, 430));
@@ -64,6 +63,7 @@ public class DrawingWindow extends JFrame {
 		
         }
         
+        // action listener that allows the reset button to work.
     	private class ResetButtonListener implements ActionListener {
 
     		public void actionPerformed(ActionEvent e) {
@@ -73,4 +73,3 @@ public class DrawingWindow extends JFrame {
 
     	}
 }
-               
