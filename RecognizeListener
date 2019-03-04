@@ -3,6 +3,7 @@ import java.awt.event.ActionListener;
 
 public class RecognizeListener implements ActionListener {
 
+	//class that is called from the recognitionwin class and loads image.
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
@@ -19,4 +20,3 @@ public class RecognizeListener implements ActionListener {
 	}
 
 	}
-
