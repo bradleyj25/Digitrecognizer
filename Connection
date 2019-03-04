@@ -1,13 +1,15 @@
 import java.util.HashMap;
-
+//class that connects many classes
 public class Connection {
 	
 	 public static MainView mainview;
      public static DrawingPanel drawingPanel;
      public static NeuralNetworks neuralNet;
      public static RecognitionWin recognitionWin;
+     public static DrawingWindow drawingWindow;
      private static HashMap<Integer, String> binary;
 
+     //hashmap
      static {
              binary = new HashMap<Integer, String>();
              binary.put(0, "1 0 0 0 0 0 0 0 0 0");
