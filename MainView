@@ -44,8 +44,6 @@ public class MainView {
 	DrawingWindow drawingWindow;
 	DrawingPanel drawingPanel;
 	MnistReader mnistReader;
-	ImageFileHandler imagefileHandler;
-	FileHandler fileHandler; 
 
 	private ImageModel imgModel; 
 	
@@ -66,7 +64,7 @@ public class MainView {
 		//mainWindow.setSize(new Dimension(200, 100));;
 
 		
-		
+		//creates and adds button to the main window
 		JPanel fileSelectPanel = new JPanel();
 		
 		fileNameLbl = new JLabel ("File name: ");
@@ -114,7 +112,7 @@ public class MainView {
 	        displayPanel.setBackground(Color.DARK_GRAY);
 	        displayPanel.add(imageLabel);
 	        
-	        // add image panel to the centre of the main window
+	        // add image panel to the center of the main window
 	        mainWindow.add(displayPanel, BorderLayout.CENTER);
 
 		
@@ -223,7 +221,8 @@ public class MainView {
 			}
 		});
 	}
-	
+	// creates a file chooser button that links to users files and allows them
+	// to upload image and display
 	private void displayImage(BufferedImage img) {
 		imageLabel.setIcon(new ImageIcon(img));
 	}
@@ -243,16 +242,3 @@ public class MainView {
 	}
 
 }
-
-
-				
-
-
-
-				
-
-
-
-				
-
-
