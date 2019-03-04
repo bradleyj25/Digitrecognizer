@@ -6,8 +6,9 @@ public class MainController implements ActionListener {
 	public MainController(ImageModel imgModel) {
 		// TODO Auto-generated constructor stub
 	}
-
+// works as an action event to preferm a task
 	@Override 
+	
 	
 	public void actionPerformed(ActionEvent e) { 
 		
