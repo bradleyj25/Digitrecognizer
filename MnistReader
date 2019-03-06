@@ -6,109 +6,237 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 
 public class MnistReader {
+	private static final MnistReader MNISTDataLoader = null;
+	MainView mainView;
+	DrawingWindow drawingWindow;
+	DrawingPanel drawingPanel;
+	
 
-	
-		String train_label_filename;
-		String train_image_filename;
-		
-		
-		DataInputStream label_data_stream = null; 
-		DataInputStream image_data_stream = null; 
-	
-		
-		ArrayList<int[][]> image_list;
-		int[] label_list;
-		
-		// default constructor
-		public MnistReader() {
-			
-		}
-		public MnistReader(String labelpath, String imagePath) {
-			this.train_label_filename = labelpath;
-			this.train_image_filename= imagePath;
-			
-			image_list = new ArrayList<int[][]>();
-		}
-		
-		public int[] getLabels() {
-			return label_list;
-		}
-		
-		public ArrayList<int[][]> getImages() { 
-			return image_list;
-		}
 		
 
-		public void readMNISTData() {
+
+	static BufferedImage[] ImgList = new BufferedImage[60000];
+	static int[] label_list = new int[60000]; 
+
+	
+	
+
+		
+	@SuppressWarnings("static-access")
+	public static BufferedImage[] importMNIST() throws Exception {
+	
+		
+		
+		String train_label_filename = "C:\\Users\\Brad\\Documents\\Digit Recognition Assignment\\train-labels.idx1-ubyte.gz";
+		String train_image_filename = "C:\\Users\\Brad\\Documents\\Digit Recognition Assignment\train-images.idx3-ubyte.gz";
+		FileInputStream in_stream_labels = null;
+		FileInputStream in_stream_images = null;
+		
 			
 			try {
-				label_data_stream = new DataInputStream(new FileInputStream(train_label_filename));
-				image_data_stream = new DataInputStream(new FileInputStream(train_image_filename));
-				 
-				int startcode_img = image_data_stream.readInt();
-				int startcode_label = label_data_stream.readInt();
-				
-				System.out.println("start code: images = " + startcode_img + 
-						" startcode labels = " + startcode_label);
-				
-				int number_of_labels = label_data_stream.readInt();
-				int number_of_images = image_data_stream.readInt();
-				
-				System.out.println("number of labels and images: " + number_of_labels + " and " + number_of_images);
 
-				int image_height = image_data_stream.readInt();
-				int image_width = image_data_stream.readInt();
-				
-				System.out.println("Image Size: " + image_width + " x" + image_height);
-				
-				byte[] label_data = new byte[number_of_labels];
-				
-				int image_size = image_height * image_width;
-				byte[] image_data = new byte[image_size * number_of_images];
-				
-				label_data_stream.read(label_data);
-				label_data_stream.read(image_data);
-				
-				int[][] image;
-				label_list = new int[number_of_labels];
-				
-				for(int i=0; i< number_of_labels; i++)
-				{
-					int label = label_data[i];
-					label_list[i] = label;
+				in_stream_labels = new FileInputStream(new File(train_label_filename));
+				in_stream_images = new FileInputStream(new File(train_image_filename));
+		
+				int labels_start_code = (in_stream_labels.read() <<24) |
+						(in_stream_labels.read() << 16) | (in_stream_labels.read() << 8) | (in_stream_labels.read());
+				if (labels_start_code != 2049) {
 					
 					
-					System.out.println(label);
+					throw new Exception("The Label Magic number is Incorrect. It should be 2049, it is " + labels_start_code);
 					
-					image = new int[image_width][image_height];
-					
-					for(int row = 0; row < image_height; row++) { 
-						for(int col = 0; col < image_width; col++) {
-							
-							image[row][col] = image_data[(i*image_size) +((row*image_width) + col)];
-						}
-					}
-					image_list.add(image);
 				}
-				
-			}
-			catch(IOException e) {
-				
-			}
-		  
-		    }
-		
-		
-		  public double getDistance(final double[] features1, final double[] features2) {
-		        double sum = 0;
-		        for (int i = 0; i < features1.length; i++)
-		            sum += Math.pow(features1[i] - features2[i], 2);
-		        return Math.sqrt(sum);
-		        
-		  }
-		  
+				int images_start_code = (in_stream_images.read() <<24) |
+						(in_stream_images.read() << 16) | (in_stream_images.read() << 8) | (in_stream_images.read());
+				if (images_start_code != 2051) {
+					
+					
+					throw new Exception("The Image Magic number is Incorrect. It should be 2051, it is " + images_start_code);
+					
+				}
+				int number_of_labels = (in_stream_labels.read() <<24) |
+				(in_stream_labels.read() << 16) | (in_stream_labels.read() << 8) | (in_stream_labels.read());
 
+		int number_of_images = (in_stream_images.read() <<24) |
+				(in_stream_images.read() << 16) | (in_stream_images.read() << 8) | (in_stream_images.read());
+		
+		
+		int image_height = (in_stream_images.read() <<24) |
+				(in_stream_images.read() << 16) | (in_stream_images.read() << 8) | (in_stream_images.read());
+		
+		int image_width = (in_stream_images.read() <<24) |
+				(in_stream_images.read() << 16) | (in_stream_images.read() << 8) | (in_stream_images.read());
+		
+		
+		
+		
+		int image_size = image_width * image_height;
+		
+		int[] image_data;
+	
+	
 			
-				
+	for (int record = 0; record < 60000; record++)
+	{
+		
+		BufferedImage currentImg = new BufferedImage(image_width, image_height, BufferedImage.TYPE_INT_ARGB);
+		
+		int label = in_stream_labels.read();
+		label_list[record] = label;
+		image_data = new int[image_width* image_height];
+		image_size = image_width * image_height;
+		for (int pixel = 0; pixel < image_size; pixel++)
+		{
+			
+			int gray_value = in_stream_images.read();
+			int red = (gray_value >> 16) & 0xff;
+    		int green = (gray_value >> 8) & 0xff;
+    		int blue = (gray_value) & 0xff;
+    		int grayscale = (int) ((0.3 * red) + (0.59 * green) + (0.11 * blue));
+    		int new_pixel_value = 0xFF000000 | (grayscale << 16) | (grayscale <<8)| (grayscale);
+			image_data[pixel] = new_pixel_value;
+			
+		}
+		currentImg.setRGB(0, 0, image_width, image_height, image_data, 0, image_width);
+		ImgList[record] = currentImg;
+	}
+			}
+	
+		finally { 
+			
+		}
+			return ImgList;
+	}
+	
+	
+	public static BufferedImage[] getPictureList() {
+		
+		return ImgList ;
+		
+	}
+	
+	public static int[] getLabels() {
+		return label_list;
+	}
+	
+
+	
+	@SuppressWarnings("static-access")
+	private void Predict() throws Exception {
+		
+		//The Prediction method predicts the handwritten digit
+		
+		MNISTDataLoader.importMNIST();
+		BufferedImage[] trainingImages = new BufferedImage[60000];
+		trainingImages = MNISTDataLoader.getPictureList();
+		BufferedImage d_img = drawingPanel.getUploadedImg();
+		int[] labels = new int[60000];
+		labels = MNISTDataLoader.getLabels();
+		
+		//Loads the MNIST training images, their labels and the current image in the UploadedImg JLabel
+		
+		double[][] distance_label_array = new double[60000][2];
+		
+		for (int i = 0; i<60000; i++) {
+			BufferedImage train = trainingImages[i];
+			BufferedImage myimage = d_img;
+		
+		//This Loop assigns	the current training image to train so it can be used to compare to the users image
+			
+			// Above checks whether the training image and users image are the same size so they can be compared correctly
+			
+			
+			double pixel_error_sum = 0; 
+			for (int row = 0; row< myimage.getHeight(); row++) {
+				for(int col = 0; col<myimage.getWidth(); col++) {
+					int train_pixel;
+					train_pixel= train.getRGB(col, row);
+					int myimage_pixel;
+					myimage_pixel= myimage.getRGB(col, row);
+					
+					pixel_error_sum += Math.sqrt((Math.pow(myimage_pixel - train_pixel, 2) ));
+					
+				}
+			}
+			// These loops calculate the Euclidean distance between each pixel in the two images and add them together
+			
+			distance_label_array[i][0] = labels[i];
+			distance_label_array[i][1] = pixel_error_sum;
+			
+			//This assigns the overall Euclidean distance difference and corresponding label to a 2d array
+			
+			
+			
+			
+		}
+	
+		double sorted_distance_label_array[][] = new double[60000][2];
+		
+		
+		Arrays.sort(distance_label_array, Comparator.comparingDouble(arr -> arr[1]));
+		sorted_distance_label_array = distance_label_array;
+	
+		int[] closest_k_label_array = new int[100];
+		for (int i = 0; i<100; i++) {
+			
+			closest_k_label_array[i] = (int) sorted_distance_label_array[i][0];
+			
+		}
+		
+		//This sorts the Array based on the distance difference and assigns the lowest 'K' number of labels to an array 
+		
+		Map<Integer, Integer> map = new HashMap<Integer, Integer>();
+		for (int i : closest_k_label_array ) {
+		    Integer count = map.get(i);
+		    map.put(i, count != null ? count+1 : 0);
+		}
+		Integer popular = Collections.max(map.entrySet(),
+			    new Comparator<Map.Entry<Integer, Integer>>() {
+			    @Override
+			    public int compare(Entry<Integer, Integer> o1, Entry<Integer, Integer> o2) {
+			        return o1.getValue().compareTo(o2.getValue());
+			    }
+			}).getKey();
+		
+		// This calculates the most common label in the closest_k_label_array
+		
+		
+		int count = 0;
+		for (int i=0; i<closest_k_label_array.length;i++) {
+			if (popular == closest_k_label_array[i]) {
+				count++;
+			}
+			
+			
+		}
+		
+		// This counts how many of the most popular label there are
+		
+		
+		System.out.println("The count is " + count);
+		count = count * 100;
+		double confidence = count/closest_k_label_array.length;
+		
+		System.out.println("Prediction is " + popular);
+		System.out.println(confidence + "% Confidence");
+		
+		
+	
+			
+		// This calculates the % confidence of the result and displays the Predicted digit with confidence		
+	}
+
+
+	public void readMNISTData() {
+		// TODO Auto-generated method stub
+		
+	}
+}
